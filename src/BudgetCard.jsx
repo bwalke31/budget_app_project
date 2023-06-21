@@ -1,16 +1,30 @@
-import { Button, Card, Stack } from "react-bootstrap";
+import { Button, Card, ProgressBar, Stack } from "react-bootstrap";
 
-export function BudgetCard({ title, description, amount, onChange }) {
+export default function BudgetCard({
+  title,
+  description,
+  onChange,
+  amount,
+  max,
+}) {
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card style={{ width: "30rem" }}>
       <Card.Body>
-        <Card.Title>Title</Card.Title>
-        <Card.Text>Description</Card.Text>
-        <Card.Text>
-          Amount:<span style={{ marginLeft: 5 }}>$10</span>
-        </Card.Text>
-        <Stack direction="horizontal" gap={2}>
-          <Button>Update</Button>
+        <Card.Title className="d-flex justify-content-between">
+          {title}
+          <div className="fw-normal">
+            ${amount} / ${max}
+          </div>
+        </Card.Title>
+        <Card.Text>{description}</Card.Text>
+        <ProgressBar className="mb-4" animated now={(amount / max) * 100} />
+        <Stack
+          direction="horizontal"
+          gap={2}
+          className="d-flex justify-content-end"
+        >
+          <Button>Update Expenses</Button>
+          <Button>View Expenses</Button>
           <Button variant="outline-danger">Delete</Button>
         </Stack>
       </Card.Body>

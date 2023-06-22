@@ -10,13 +10,13 @@ export function useLocalStorage(key, initialValue) {
         return initialValue;
       }
     } else {
-      return localValue;
+      return JSON.parse(localValue);
     }
   });
 
   useEffect(() => {
-    localStorage.setItem(key, value);
-  }, [value]);
+    localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
 
   return [value, setValue];
 }

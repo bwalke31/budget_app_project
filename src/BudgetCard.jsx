@@ -1,14 +1,18 @@
 import { Button, Card, ProgressBar, Stack } from "react-bootstrap";
+import { useBudgetContext } from "./Contexts/BudgetContext";
 
-export default function BudgetCard({
-  title,
-  description,
-  onChange,
-  amount,
-  max,
-}) {
+export default function BudgetCard({ id, title, description, amount, max }) {
+  const { deleteBudget } = useBudgetContext();
+
+  function handleDelete(e) {
+    e.preventDefault();
+    deleteBudget({
+      id: id,
+    });
+  }
+
   return (
-    <Card style={{ width: "30rem" }}>
+    <Card style={{ width: "40rem" }}>
       <Card.Body>
         <Card.Title className="d-flex justify-content-between">
           {title}
@@ -24,8 +28,9 @@ export default function BudgetCard({
           className="d-flex justify-content-end"
         >
           <Button>Update Expenses</Button>
-          <Button>View Expenses</Button>
-          <Button variant="outline-danger">Delete</Button>
+          <Button onClick={handleDelete} variant="outline-danger">
+            Delete
+          </Button>
         </Stack>
       </Card.Body>
     </Card>
